@@ -8,7 +8,8 @@ public class drag_drop extends PApplet{
     // to store the blocks from the sidebar
     Instruction[] originalInstructions;
     // blocks from the sidebar
-    Instruction stepBlock, turnBlock;
+    Instruction stepBlock;
+    Instruction turnBlock;
     // to store any new blocks dragged into the game
     ArrayList<Instruction> instructionCopies;
 
@@ -23,7 +24,6 @@ public class drag_drop extends PApplet{
         turnBlock = new TurnInstruction(590, 200);
         originalInstructions = new Instruction[]{stepBlock, turnBlock};
         instructionCopies = new ArrayList<>();
-
     }
 
     // continuously updates the screen every x frames

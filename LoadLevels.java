@@ -12,6 +12,7 @@ class LoadLevels {
         this.curLevel = level;
     }
 
+    /*
     // Making HashMap from Points
     public HashMap<String, Point> makeMap(Point coordB, Point coordR, Point coordG) {
         HashMap<String, Point> map = new HashMap<String, Point>();
@@ -21,6 +22,13 @@ class LoadLevels {
         map.put("green", coordG);
 
         return map;
+    }*/
+
+    public void setLevel(int level){
+         this.curLevel = level ;
+    }
+    public int getLevel(){
+        return this.curLevel;
     }
 
     // Making levels with given coordinates, and saving it in local files

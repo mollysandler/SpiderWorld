@@ -1,21 +1,23 @@
 import processing.core.PApplet;
+
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 public final class World {
-    public PApplet screen;
-    public int leftPadding = 9;
-    public int topPadding = 143;
+    public final PApplet screen;
+    public final int leftPadding = 9;
+    public final int topPadding = 143;
     public int numRows;
     public int tileWidth;
     public int bgColor;
-    public HashMap< String, List< Point > > levelMap;
+    public HashMap< String, ArrayList< Point > > levelMap;
 
-    public World( PApplet screen ) {
+    public World(PApplet screen) {
         this.screen = screen;
     }
 
-    public void setLevel( HashMap< String, List< Point > > level ) {
+    public void setLevel( HashMap< String, ArrayList< Point > > level ) {
         levelMap = level;
     }
 
