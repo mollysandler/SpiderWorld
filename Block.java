@@ -15,7 +15,7 @@ public class Block extends drag_drop{
     }
 
     @Override
-    public boolean isMouseOver() {
+    public boolean isMouseOver() { //checks if mouse within boundaries of block
         return (((x_pos < screen.mouseX) && (screen.mouseX < x_pos + width)) && ((y_pos < screen.mouseY) && (screen.mouseY < y_pos + height)));
     }
 

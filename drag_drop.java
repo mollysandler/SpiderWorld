@@ -15,7 +15,7 @@ public abstract class drag_drop{
     }
     //continuously updates the screen every x frames
 
-    public void drag() {
+    public void drag() { //to check if the user is currently dragging the block
 
         if (isDragging) {
 
@@ -24,8 +24,8 @@ public abstract class drag_drop{
         }
     }
 
-    public abstract void display();
-    public abstract boolean isMouseOver();
+    public abstract void display(); //display for individual blocks
+    public abstract boolean isMouseOver(); //return if mouse is over
     public void mousePressed() {
         if(isMouseOver()){ //calculate offset for the dragging
             xOffset = Math.abs(x_pos - screen.mouseX);
