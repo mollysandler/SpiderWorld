@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 class LoadLevels {
@@ -23,9 +24,8 @@ class LoadLevels {
     }
 
     // Making levels with given coordinates, and saving it in local files
-    public void saveHashMap(Point coordB, Point coordR, Point coordG) {
+    public void saveHashMap(HashMap<String, ArrayList<Point>> map) {
         String fileName = "level" + this.curLevel;
-        HashMap<String, Point> map = makeMap(coordB, coordR, coordG);
 
         try (FileOutputStream fos = new FileOutputStream(fileName);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -37,13 +37,13 @@ class LoadLevels {
     }
 
     // Loading existing level file
-    public HashMap<String, Point> loadHashMap() {
+    public HashMap<String, ArrayList<Point>> loadHashMap() {
         String fileName = "level" + this.curLevel;
-        HashMap<String, Point> map = null;
+        HashMap<String, ArrayList<Point>> map = null;
 
         try (FileInputStream fis = new FileInputStream(fileName);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
-            map = (HashMap<String, Point>) ois.readObject();
+            map = (HashMap<String, ArrayList<Point>>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
