@@ -1,14 +1,20 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Main extends PApplet {
-    Block testblock;
+    StepInstruction testblock;
+//    Block testblock;
+    PImage stepBlock_photo;
 
     public void settings() {
         size(1600, 900);
     }
 
     public void setup() {
-        testblock = new Block(this, 100, 100, 150, 100);
+        stepBlock_photo = loadImage("OIP.jpg");
+        testblock = new StepInstruction(this, 100, 100, stepBlock_photo);
+//        testblock = new Block(this, 100, 100, 150, 100);
+
     }
 
     public void draw() {
