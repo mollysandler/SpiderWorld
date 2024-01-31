@@ -41,7 +41,7 @@ public final class World {
     }
 
     public void drawEntities() {
-        screen.image( screen.loadImage( "images/spider_east.png" ), leftPadding, topPadding );
+        screen.image( screen.loadImage( "/Users/mollysandler/Documents/308/SpiderWorld2/images/spider_east.png" ), leftPadding, topPadding );
         screen.textSize( 12 );
 
         // draw red diamonds
