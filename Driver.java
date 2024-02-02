@@ -8,12 +8,16 @@ public class Driver extends PApplet{
 
     private World world;
     private LoadLevels level;
-    private StepInstruction testBlock;
-    private TurnInstruction testBlock2;
+    Instruction[] originalInstructions;
+    // blocks from the sidebar
+    private StepInstruction stepBlock;
+    private TurnInstruction turnBlock;
+    // to store any new blocks dragged into the game
+    ArrayList<Instruction> instructionCopies;
 
     @Override
     public void settings(){
-        size(1600, 900);
+        size(1200, 900);
     }
 
     @Override
@@ -22,35 +26,60 @@ public class Driver extends PApplet{
         level = new LoadLevels(0);
 
         PImage stepBlockImage = loadImage("images/step.png");
-        testBlock = new StepInstruction(this, 500, 500, stepBlockImage);
+        stepBlock = new StepInstruction(this, 500, 500, stepBlockImage);
 
         PImage turnBlockImage = loadImage("images/turn.png");
-        testBlock2 = new TurnInstruction(this, 600, 600, turnBlockImage);
+        turnBlock = new TurnInstruction(this, 600, 600, turnBlockImage);
+
+        originalInstructions = new Instruction[]{stepBlock, turnBlock};
+        instructionCopies = new ArrayList<>();
     }
     @Override
     public void draw() {
         background(100, 100, 100);
+        for (Instruction currInstruction : originalInstructions) {
+            currInstruction.display();
+        }
         HashMap<String, ArrayList<Point>> map = level.loadHashMap();
         world.setLevel(map);
         world.drawWorld();
-        testBlock.display();
-        testBlock.drag();
-        testBlock2.display();
-        testBlock2.drag();
+        stepBlock.drag();
+        turnBlock.drag();
         level.saveHashMap(map);
+
+        //displays all copies
+        for (Instruction currInstruction : instructionCopies) {
+            currInstruction.drag();
+            currInstruction.display();
+        }
     }
 
     @Override
     public void mousePressed() {
-        testBlock.mousePressed();
-        testBlock2.mousePressed();
+        //when on original blocks, will create copies and will automatically be dragging copies
+        for(Instruction currInstruction: originalInstructions) {
+            if (currInstruction.isMouseOver()) {
+                Instruction copy = currInstruction.clone(); // Create a copy
+                copy.mousePressed();
+                instructionCopies.add(copy); // Add the copy to the list
+                break;
+            }
+        }
+        //lets you drag around copies that you've dropped
+        for (Instruction copy : instructionCopies) {
+            if (copy.isMouseOver()) {
+                copy.mousePressed();
+            }
+        }
 
     }
 
     @Override
     public void mouseReleased() {
-        testBlock.mouseReleased();
-        testBlock2.mouseReleased();
+        //release mouse, set drag false
+        for (Instruction currInstruction : instructionCopies){
+            currInstruction.isDragging = false;
+        }
 
     }
 
