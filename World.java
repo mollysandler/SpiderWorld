@@ -1,13 +1,14 @@
 import processing.core.PApplet;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * @author jemma arona
+ */
 public final class World {
     public final PApplet screen;
-    private final float leftPadding = 9;
-    private final float topPadding = 143;
+    private static final float leftPadding = 9;
+    private static final float topPadding = 143;
     private int numRows;
     private float tileWidth;
     private int bgColor;

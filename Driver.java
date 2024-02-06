@@ -3,7 +3,9 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * @author molly sandler
+ */
 public class Driver extends PApplet{
 
     private World world;
@@ -26,10 +28,10 @@ public class Driver extends PApplet{
         level = new LoadLevels(0);
 
         PImage stepBlockImage = loadImage("images/step.png");
-        stepBlock = new StepInstruction(this, 500, 500, stepBlockImage);
+        stepBlock = new StepInstruction(this, 1000, 200, stepBlockImage);
 
         PImage turnBlockImage = loadImage("images/turn.png");
-        turnBlock = new TurnInstruction(this, 600, 600, turnBlockImage);
+        turnBlock = new TurnInstruction(this, 1000, 275, turnBlockImage);
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock};
         instructionCopies = new ArrayList<>();

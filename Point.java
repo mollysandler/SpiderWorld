@@ -1,5 +1,8 @@
 import java.io.Serializable;
 
+/**
+ * @author aayush joshi
+ */
 class Point implements Serializable {
 
     private final int x;
