@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class Driver extends PApplet{
 
-    private World world;
+    private WorldData worldData;
     private LoadLevels level;
     Instruction[] originalInstructions;
     // blocks from the sidebar
@@ -24,7 +24,9 @@ public class Driver extends PApplet{
 
     @Override
     public void setup(){
-        world = new World(this);
+        worldData = WorldData.getWorldData();
+        WorldView worldView = new WorldView(this);
+        worldData.addPropertyChangeListener(worldView);
         level = new LoadLevels(0);
 
         PImage stepBlockImage = loadImage("images/step.png");
@@ -43,8 +45,7 @@ public class Driver extends PApplet{
             currInstruction.display();
         }
         HashMap<String, ArrayList<Point>> map = level.loadHashMap();
-        world.setLevel(map);
-        world.drawWorld();
+        worldData.setLevel(map);
         stepBlock.drag();
         turnBlock.drag();
         level.saveHashMap(map);

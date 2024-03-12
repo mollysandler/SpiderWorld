@@ -4,7 +4,7 @@ spider-world
 Sprint Reqs:
 Load Problem Info - Aayush 
 
-Draw World        - Jemma
+Draw WorldData        - Jemma
 
 Draw Step and Turn Blocks  - Riya
 

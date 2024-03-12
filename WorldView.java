@@ -1,25 +1,27 @@
 import processing.core.PApplet;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * @author jemma arona
  */
-public final class World {
+public final class WorldView implements PropertyChangeListener {
     public final PApplet screen;
     private static final float leftPadding = 9;
     private static final float topPadding = 143;
+    private float tileWidth = 60;
+    private boolean visible;
     private int numRows;
-    private float tileWidth;
     private int bgColor;
+    private int[] spider;
     private HashMap <String, ArrayList <Point>> levelMap;
+    private HashMap <ArrayList <Point>, String> tileMap;
+    private String IMAGEFOLDERPATH = "images/";
 
-    public World(PApplet screen) {
+    public WorldView(PApplet screen) {
         this.screen = screen;
-    }
-
-    public void setLevel( HashMap <String, ArrayList< Point>> level ) {
-        levelMap = level;
     }
 
     public void readLevel() {
@@ -44,11 +46,7 @@ public final class World {
     }
 
     public void drawEntities() {
-        screen.image( screen.loadImage
-                ( "/Users/mollysandler/Documents/coursework-1/308/SpiderWorld2/images/spider_east.png" ),
-                leftPadding, topPadding );
         screen.textSize( 12 );
-
         // draw red diamonds
         if ( levelMap.containsKey( "red" ) ) {
             screen.fill( screen.color( 255, 89, 94 ) );
@@ -71,16 +69,43 @@ public final class World {
         if ( levelMap.containsKey( "green" ) ) {
             screen.fill( screen.color( 138, 201, 38 ) );
             for ( Point P : levelMap.get( "green" ) ) {
-                float diamondX = (float) (leftPadding + tileWidth * ( P.getX() + .5 ) - 5);
+                float diamondX = (float) ( leftPadding + tileWidth * ( P.getX() + .5 ) - 5 );
                 float diamondY = (float) ( topPadding + tileWidth * ( P.getY() + .5 ) + 5 );
                 screen.text('◆', diamondX, diamondY );
             }
         }
+        screen.image( screen.loadImage
+                        ( IMAGEFOLDERPATH + "spider_east.png" ),
+                leftPadding, topPadding );
     }
 
     public void drawWorld() {
-        readLevel();
         drawGrid();
         drawEntities();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch ( evt.getPropertyName() ) {
+            case "bgColor":
+                bgColor = screen.color(((int[]) evt.getNewValue())[0], ((int[]) evt.getNewValue())[1], ((int[]) evt.getNewValue())[2]);
+                break;
+            case "numRows":
+                numRows = (int) evt.getNewValue();
+                break;
+            case "levelMap":
+                levelMap = (HashMap<String, ArrayList<Point>>) evt.getNewValue();
+                break;
+            case "tileMap":
+                tileMap = (HashMap<ArrayList<Point>, String>) evt.getNewValue();
+                break;
+            case "spider":
+                spider = (int[]) evt.getNewValue();
+                break;
+            case "visible":
+                visible = (boolean) evt.getNewValue();
+                if (visible) drawWorld();
+                break;
+        }
     }
 }
