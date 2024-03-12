@@ -25,4 +25,11 @@ class Point implements Serializable {
     public int hashCode() {
         return (7 * 31 + this.x) * 31 + this.y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if ( !( o instanceof Point p ) ) return false;
+        return p.getX() == x && p.getY() == y;
+    }
 }

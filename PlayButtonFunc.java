@@ -11,9 +11,10 @@ public class PlayButtonFunc implements Runnable{
     public void run() {
         WorldData myData = WorldData.getWorldData();
 
-        InstructionList instructionList = InstructionList.getInstructionsInstance();
+//        InstructionList instructionList = InstructionList.getInstructionsInstance();
 
-        ArrayList<String> instructions = instructionList.getInstructions();
+//        ArrayList<String> instructions = instructionList.getInstructions();
+        ArrayList<String> instructions = new ArrayList<>();
         int[] dataSpider = myData.getSpider();
         if (!Objects.equals(instructions.get(0), "start")){
             return;

@@ -17,7 +17,7 @@ public final class WorldView implements PropertyChangeListener {
     private int bgColor;
     private int[] spider;
     private HashMap <String, ArrayList <Point>> levelMap;
-    private HashMap <ArrayList <Point>, String> tileMap;
+    private HashMap <Point, String> tileMap;
     private String IMAGEFOLDERPATH = "images/";
 
     public WorldView(PApplet screen) {
@@ -45,43 +45,76 @@ public final class WorldView implements PropertyChangeListener {
         }
     }
 
-    public void drawEntities() {
+    public void drawDiamonds() {
         screen.textSize( 12 );
         // draw red diamonds
         if ( levelMap.containsKey( "red" ) ) {
             screen.fill( screen.color( 255, 89, 94 ) );
-            for ( Point P : levelMap.get( "red" ) ) {
-                float diamondX = (float) ( leftPadding + tileWidth * ( P.getX() + .5 ) - 5 );
-                float diamondY = (float) ( topPadding + tileWidth * ( P.getY() + .5 ) + 5 );
+            for ( Point p : levelMap.get( "red" ) ) {
+                float diamondX = (float) ( leftPadding + tileWidth * ( p.getX() + .5 ) - 5 );
+                float diamondY = (float) ( topPadding + tileWidth * ( p.getY() + .5 ) + 5 );
                 screen.text('◆', diamondX, diamondY );
             }
         }
         // draw blue diamonds
         if ( levelMap.containsKey( "blue" ) ) {
             screen.fill( screen.color( 63, 166, 231 ) );
-            for ( Point P : levelMap.get( "blue" ) ) {
-                float diamondX = (float) ( leftPadding + tileWidth * ( P.getX() + .5 ) - 5 );
-                float diamondY = (float) ( topPadding + tileWidth * ( P.getY() + .5 ) + 5 );
+            for ( Point p : levelMap.get( "blue" ) ) {
+                float diamondX = (float) ( leftPadding + tileWidth * ( p.getX() + .5 ) - 5 );
+                float diamondY = (float) ( topPadding + tileWidth * ( p.getY() + .5 ) + 5 );
                 screen.text('◆', diamondX, diamondY );
             }
         }
         // draw green diamonds
         if ( levelMap.containsKey( "green" ) ) {
             screen.fill( screen.color( 138, 201, 38 ) );
-            for ( Point P : levelMap.get( "green" ) ) {
-                float diamondX = (float) ( leftPadding + tileWidth * ( P.getX() + .5 ) - 5 );
-                float diamondY = (float) ( topPadding + tileWidth * ( P.getY() + .5 ) + 5 );
+            for ( Point p : levelMap.get( "green" ) ) {
+                float diamondX = (float) ( leftPadding + tileWidth * ( p.getX() + .5 ) - 5 );
+                float diamondY = (float) ( topPadding + tileWidth * ( p.getY() + .5 ) + 5 );
                 screen.text('◆', diamondX, diamondY );
             }
         }
-        screen.image( screen.loadImage
-                        ( IMAGEFOLDERPATH + "spider_east.png" ),
-                leftPadding, topPadding );
+        String imgPath = IMAGEFOLDERPATH;
+        switch ( spider[2] ) {
+            case 1:
+                imgPath += "spider_north.png";
+                break;
+            case 2:
+                imgPath += "spider_west.png";
+                break;
+            case 3:
+                imgPath += "spider_south.png";
+                break;
+            default:
+                imgPath += "spider_east.png";
+                break;
+        }
+        screen.image( screen.loadImage( imgPath ), leftPadding + spider[0]*tileWidth, topPadding + spider[1]*tileWidth );
+    }
+
+    public void drawPaint() {
+        for ( Point p : tileMap.keySet() ) {
+            switch ( tileMap.get(p) ){
+                case "red":
+                    screen.fill( screen.color( 255, 89, 94 ), 99 );
+                    break;
+                case "blue":
+                    screen.fill( screen.color( 63, 166, 231 ), 99 );
+                    break;
+                case "green":
+                    screen.fill( screen.color( 138, 201, 38 ), 99 );
+                    break;
+                default:
+                    screen.fill( bgColor );
+            }
+            screen.rect(leftPadding + tileWidth * ( p.getX() ), topPadding + tileWidth * ( p.getY() ), tileWidth, tileWidth );
+        }
     }
 
     public void drawWorld() {
         drawGrid();
-        drawEntities();
+        drawDiamonds();
+        drawPaint();
     }
 
     @Override
@@ -97,7 +130,7 @@ public final class WorldView implements PropertyChangeListener {
                 levelMap = (HashMap<String, ArrayList<Point>>) evt.getNewValue();
                 break;
             case "tileMap":
-                tileMap = (HashMap<ArrayList<Point>, String>) evt.getNewValue();
+                tileMap = (HashMap<Point, String>) evt.getNewValue();
                 break;
             case "spider":
                 spider = (int[]) evt.getNewValue();

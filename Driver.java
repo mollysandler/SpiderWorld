@@ -27,7 +27,8 @@ public class Driver extends PApplet{
         worldData = WorldData.getWorldData();
         WorldView worldView = new WorldView(this);
         worldData.addPropertyChangeListener(worldView);
-        level = new LoadLevels(0);
+        LevelGenerator levelGenerator = new LevelGenerator();
+        level = new LoadLevels(1);
 
         PImage stepBlockImage = loadImage("images/step.png");
         stepBlock = new StepInstruction(this, 1000, 200, stepBlockImage);
