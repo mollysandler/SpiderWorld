@@ -21,4 +21,8 @@ class Point implements Serializable {
         return this.y;
     }
 
+    @Override
+    public int hashCode() {
+        return (7 * 31 + this.x) * 31 + this.y;
+    }
 }
