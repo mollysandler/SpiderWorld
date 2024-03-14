@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,28 +12,22 @@ public class PlayButtonFunc implements Runnable{
     public void run() {
         WorldData myData = WorldData.getWorldData();
 
-//        InstructionList instructionList = InstructionList.getInstructionsInstance();
+        InstructionList instructionList = InstructionList.getInstance();
 
-//        ArrayList<String> instructions = instructionList.getInstructions();
-        ArrayList<String> instructions = new ArrayList<>();
+        List<Instruction> instructions = instructionList.getSortedInstructions();
         int[] dataSpider = myData.getSpider();
-        if (!Objects.equals(instructions.get(0), "start")){
-            return;
-        }
 
-        for(String instruction:instructions) {
+        for(Instruction instruction:instructions) {
             System.out.println("Spider x: " + dataSpider[0] + " Spider y: " + dataSpider[1]);
-            switch (instruction.toLowerCase()) {
-                case "step" -> {
-                    int[] newPos = stepHandler(dataSpider[0], dataSpider[1], dataSpider[2]);
-                    System.out.println("New Spider x: " + newPos[0] + " New Spider y: " + newPos[1]);
-                    myData.moveSpider(newPos[0], newPos[1], newPos[2]);
-                }
-                case "turn" -> myData.moveSpider(dataSpider[0], dataSpider[1], turnHandler(dataSpider[2]));
-                case "paint" -> {
-                    String color = "red";
-                    myData.paintTile(dataSpider[0], dataSpider[1], color);
-                }
+            if (instruction instanceof StepInstruction) {
+                int[] newPos = stepHandler(dataSpider[0], dataSpider[1], dataSpider[2]);
+                System.out.println("New Spider x: " + newPos[0] + " New Spider y: " + newPos[1]);
+                myData.moveSpider(newPos[0], newPos[1], newPos[2]);
+            } else if (instruction instanceof TurnInstruction) {
+                myData.moveSpider(dataSpider[0], dataSpider[1], turnHandler(dataSpider[2]));
+            } else if (instruction instanceof PaintInstruction) {
+                String color = ((PaintInstruction) instruction).getColor();
+                myData.paintTile(dataSpider[0], dataSpider[1], color);
             }
 
             try{
