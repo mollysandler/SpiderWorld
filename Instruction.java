@@ -29,5 +29,15 @@ public class Instruction extends dragDrop{
     public Instruction clone()  {
         return new Instruction(screen, this.xPos, this.yPos, img);
     }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public boolean toSnap(Instruction b) {
+        double xDiff = Math.abs(this.xPos - b.xPos);
+        double yDiff = Math.abs(this.yPos - b.yPos);
+        return (xDiff < 30) && (yDiff < 30);
+    }
 }
 

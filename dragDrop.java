@@ -36,7 +36,8 @@ public abstract class dragDrop{
         }
     }
 
-    //public void mouseReleased() { // once mouse is released it will release the block with it
-        //isDragging = false;
-   // }
+    public int getYPos() {
+        return this.yPos;
+    }
+
 }
