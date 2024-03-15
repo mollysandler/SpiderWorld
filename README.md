@@ -1,13 +1,6 @@
 # SpiderWorld
 spider-world
 
-Sprint Reqs:
-Load Problem Info - Aayush 
+A multi-level game in which you can move a spider around a grid using block programming to complete a goal of painting certain tiles based on their given color.
 
-Draw WorldData        - Jemma
-
-Draw Step and Turn Blocks  - Riya
-
-Drag & Drop       - Andy
-
-Integration & Driver Class      - Molly
+Made by Molly, Riya, Aayush, Andy, and Jemma.
