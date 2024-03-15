@@ -19,6 +19,7 @@ public class Driver extends PApplet{
     private PaintInstruction paintBlueBlock;
     private PaintInstruction paintGreenBlock;
     private PaintInstruction paintRedBlock;
+    private PlayButtonGUI playButton;
     // to store any new blocks dragged into the game
     InstructionList instructionCopies = InstructionList.getInstance();
 
@@ -50,12 +51,16 @@ public class Driver extends PApplet{
         PImage paintRedBlockImage = loadImage("images/paint_red.png");
         paintRedBlock = new PaintInstruction(this, 1000, 500, paintRedBlockImage, "red");
 
+        PImage startButtonImg = loadImage("images/playButtonImg.png");
+        playButton = new PlayButtonGUI(this, 100, 500, startButtonImg);
+
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
 
     }
     @Override
     public void draw() {
         background(100, 100, 100);
+        playButton.display();
         for (Instruction currInstruction : originalInstructions) {
             currInstruction.display();
         }
@@ -74,10 +79,17 @@ public class Driver extends PApplet{
 
     @Override
     public void mousePressed() {
+        playButton.mousePressed();
         //when on original blocks, will create copies and will automatically be dragging copies
         for(Instruction currInstruction: originalInstructions) {
             if (currInstruction.isMouseOver()) {
-                Instruction copy = currInstruction.clone(); // Create a copy
+                Instruction copy = null; // Create a copy
+                try {
+                    copy = currInstruction.clone();
+                } catch (CloneNotSupportedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println(copy);
                 copy.mousePressed();
                 instructionCopies.addInstruction(copy); // Add the copy to the list
                 break;

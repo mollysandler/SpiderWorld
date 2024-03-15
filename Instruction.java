@@ -3,7 +3,7 @@ import processing.core.PImage;
 /**
  * @author riya badadare
  */
-public class Instruction extends dragDrop{
+public class Instruction extends dragDrop implements Cloneable{
     private final PImage img;
     private final int width;
     private final int height;
@@ -26,8 +26,8 @@ public class Instruction extends dragDrop{
     }
 
     // for cloning the sidebar blocks
-    public Instruction clone()  {
-        return new Instruction(screen, this.xPos, this.yPos, img);
+    public Instruction clone() throws CloneNotSupportedException {
+        return (Instruction) super.clone();
     }
 
     public int getHeight() {
@@ -38,6 +38,10 @@ public class Instruction extends dragDrop{
         double xDiff = Math.abs(this.xPos - b.xPos);
         double yDiff = Math.abs(this.yPos - b.yPos);
         return (xDiff < 30) && (yDiff < 30);
+    }
+
+    public String toString() {
+        return "instruction\n";
     }
 }
 

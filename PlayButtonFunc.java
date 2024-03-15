@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Andy Duong
@@ -19,6 +17,7 @@ public class PlayButtonFunc implements Runnable{
 
         for(Instruction instruction:instructions) {
             System.out.println("Spider x: " + dataSpider[0] + " Spider y: " + dataSpider[1]);
+            System.out.println(instruction.toString());
             if (instruction instanceof StepInstruction) {
                 int[] newPos = stepHandler(dataSpider[0], dataSpider[1], dataSpider[2]);
                 System.out.println("New Spider x: " + newPos[0] + " New Spider y: " + newPos[1]);

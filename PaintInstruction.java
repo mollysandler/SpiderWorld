@@ -9,7 +9,14 @@ public class PaintInstruction extends Instruction {
         super(screen, xPos, yPos, img);
         this.color = color;
     }
-
+    @Override
+    public PaintInstruction clone() throws CloneNotSupportedException {
+        return (PaintInstruction) super.clone();
+    }
+    @Override
+    public String toString(){
+        return "paint " + this.color;
+    }
     public String getColor() {
         return this.color;
     }
