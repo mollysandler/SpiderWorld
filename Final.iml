@@ -10,7 +10,7 @@
     <orderEntry type="library" name="Processing" level="project" />
     <orderEntry type="library" name="core" level="project" />
     <orderEntry type="library" name="core1" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../SpiderWorld/processing-4.3/core/library/core.jar!/" />

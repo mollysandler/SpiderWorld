@@ -4,7 +4,7 @@ import processing.core.PImage;
  * @author riya badadare
  */
 public class Instruction extends dragDrop implements Cloneable{
-    private final PImage img;
+    final PImage img;
     private final int width;
     private final int height;
 
@@ -40,9 +40,6 @@ public class Instruction extends dragDrop implements Cloneable{
         return (xDiff < 30) && (yDiff < 30);
     }
 
-    public void delete(){
-        this.img.resize(1, 1);
-    }
     public String toString() {
         return "instruction\n";
     }

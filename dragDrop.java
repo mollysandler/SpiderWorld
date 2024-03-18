@@ -36,8 +36,11 @@ public abstract class dragDrop{
         }
     }
 
-    public int getYPos() {
+    public int getyPos() {
         return this.yPos;
     }
 
+    public int getxPos() {
+        return xPos;
+    }
 }

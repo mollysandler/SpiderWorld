@@ -23,9 +23,13 @@ public class InstructionList {
         instructions.add(instruction);
     }
 
+    public void setInstructions(List<Instruction> instructions) {
+        this.instructions = instructions;
+    }
+
     public List<Instruction> getSortedInstructions() {
         return instructions.stream()
-                .sorted(Comparator.comparingInt(Instruction::getYPos))
+                .sorted(Comparator.comparingInt(Instruction::getyPos))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

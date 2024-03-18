@@ -21,6 +21,7 @@ public class Driver extends PApplet{
     private PImage closedDelete;
     private PImage openedDelete;
     private PlayButtonGUI playButton;
+    private PImage stepBlockImage;
 
     InstructionList instructionCopies = InstructionList.getInstance();
 
@@ -38,7 +39,7 @@ public class Driver extends PApplet{
         level = new LoadLevels(1);
 
 
-        PImage stepBlockImage = loadImage("images/step.png");
+        stepBlockImage = loadImage("images/step.png");
         stepBlock = new StepInstruction(this, 1000, 200, stepBlockImage);
 
         PImage turnBlockImage = loadImage("images/turn.png");
@@ -56,6 +57,14 @@ public class Driver extends PApplet{
         PImage startButtonImg = loadImage("images/playButtonImg.png");
         playButton = new PlayButtonGUI(this, 180, 615, startButtonImg);
 
+        //drawing the trashcan images over the background
+        closedDelete = loadImage("images/trash1.png");
+        closedDelete.resize(100, 150);
+        // Load the image to be displayed on hover
+        openedDelete = loadImage("images/trash2.png");
+        openedDelete.resize(100, 150);
+
+
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
 
@@ -65,12 +74,6 @@ public class Driver extends PApplet{
         //System.out.println("printing in draw");
         background(100, 100, 100);
         playButton.display();
-        //drawing the trashcan images over the background
-        closedDelete = loadImage("images/trash1.png");
-        closedDelete.resize(100, 150);
-        // Load the image to be displayed on hover
-        openedDelete = loadImage("images/trash2.png");
-        openedDelete.resize(100, 150);
 
         for (Instruction currInstruction : originalInstructions) {
             currInstruction.display();
@@ -132,10 +135,20 @@ public class Driver extends PApplet{
 
         List<Instruction> instructions = instructionCopies.getSortedInstructions();
 
+        List<Instruction> newInstructions = new ArrayList<>(instructions);
+
         for (Instruction currInstruction : instructions) {
             currInstruction.isDragging = false;
+            if(currInstruction.getxPos() < 100 + closedDelete.width && currInstruction.getxPos() + stepBlockImage.width > 100 && currInstruction.getyPos() < 600 + closedDelete.height && currInstruction.getyPos() + stepBlockImage.height > 600 && currInstruction.isMouseOver()){
+                newInstructions.remove(currInstruction);
+            }
         }
 
+        if(!newInstructions.isEmpty()){
+            instructionCopies.setInstructions(newInstructions);
+        }
+
+        System.out.println("no");
         // Snapping to other blocks
         for (int i = 0; i < instructions.size(); i++) {
             for (int j = 0; j < instructions.size(); j++) {
@@ -153,16 +166,6 @@ public class Driver extends PApplet{
                         a.yPos = b.yPos + 50;
                     }
                 }
-            }
-            if (mouseX > 100 && mouseX < 100 + closedDelete.width && mouseY > 600 && mouseY < 600 + closedDelete.height) {
-                System.out.println(instructions);
-                System.out.println(i);
-                System.out.println(instructions.get(i).isDragging);
-                //System.out.println(instructions.get(i));
-                //System.out.println(instructions.get(i).toString());
-                //instructions.set(i, null) ;
-                instructions.remove(instructions.get(i));
-                //System.out.println(instructions.get(i).toString());
             }
         }
     }
