@@ -13,14 +13,15 @@ public class Driver extends PApplet{
     private WorldData worldData;
     private LoadLevels level;
     Instruction[] originalInstructions;
-    // blocks from the sidebar
     private StepInstruction stepBlock;
     private TurnInstruction turnBlock;
     private PaintInstruction paintBlueBlock;
     private PaintInstruction paintGreenBlock;
     private PaintInstruction paintRedBlock;
+    private PImage closedDelete;
+    private PImage openedDelete;
     private PlayButtonGUI playButton;
-    // to store any new blocks dragged into the game
+
     InstructionList instructionCopies = InstructionList.getInstance();
 
     @Override
@@ -35,6 +36,7 @@ public class Driver extends PApplet{
         worldData.addPropertyChangeListener(worldView);
         LevelGenerator levelGenerator = new LevelGenerator();
         level = new LoadLevels(1);
+
 
         PImage stepBlockImage = loadImage("images/step.png");
         stepBlock = new StepInstruction(this, 1000, 200, stepBlockImage);
@@ -52,25 +54,47 @@ public class Driver extends PApplet{
         paintRedBlock = new PaintInstruction(this, 1000, 500, paintRedBlockImage, "red");
 
         PImage startButtonImg = loadImage("images/playButtonImg.png");
-        playButton = new PlayButtonGUI(this, 100, 500, startButtonImg);
+        playButton = new PlayButtonGUI(this, 180, 615, startButtonImg);
+
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
 
     }
     @Override
     public void draw() {
+        //System.out.println("printing in draw");
         background(100, 100, 100);
         playButton.display();
+        //drawing the trashcan images over the background
+        closedDelete = loadImage("images/trash1.png");
+        closedDelete.resize(100, 150);
+        // Load the image to be displayed on hover
+        openedDelete = loadImage("images/trash2.png");
+        openedDelete.resize(100, 150);
+
         for (Instruction currInstruction : originalInstructions) {
             currInstruction.display();
         }
+
+        //if the mouse is over the trashcan, display the opened can
+        if (mouseX > 100 && mouseX < 100 + closedDelete.width && mouseY > 600 && mouseY < 600 + closedDelete.height) {
+            image(openedDelete, 100, 600); //display the open trash can
+        }
+        else {
+            //otherwise display the closed trashcan
+            image(closedDelete, 100, 600);
+        }
+
         HashMap<String, ArrayList<Point>> map = level.loadHashMap();
         worldData.setLevel(map);
+        //level.saveHashMap(map);
         stepBlock.drag();
         turnBlock.drag();
+        paintBlueBlock.drag();
+        paintGreenBlock.drag();
+        paintRedBlock.drag();
         level.saveHashMap(map);
 
-        //displays all copies
         for (Instruction currInstruction : InstructionList.getInstance().getSortedInstructions()) {
             currInstruction.drag();
             currInstruction.display();
@@ -80,6 +104,7 @@ public class Driver extends PApplet{
     @Override
     public void mousePressed() {
         playButton.mousePressed();
+
         //when on original blocks, will create copies and will automatically be dragging copies
         for(Instruction currInstruction: originalInstructions) {
             if (currInstruction.isMouseOver()) {
@@ -89,12 +114,13 @@ public class Driver extends PApplet{
                 } catch (CloneNotSupportedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println(copy);
                 copy.mousePressed();
+                //System.out.println(orginalInstructions);
                 instructionCopies.addInstruction(copy); // Add the copy to the list
                 break;
             }
         }
+        //System.out.println(originalInstructions.toString());
         //lets you drag around copies that you've dropped
         for (Instruction copy : InstructionList.getInstance().getSortedInstructions()) {
             copy.mousePressed();
@@ -122,12 +148,21 @@ public class Driver extends PApplet{
                     if (a.yPos < b.yPos) {
                         b.xPos = a.xPos;
                         b.yPos = a.yPos + 50;
-                    }
-                    else {
+                    } else {
                         a.xPos = b.xPos;
                         a.yPos = b.yPos + 50;
                     }
                 }
+            }
+            if (mouseX > 100 && mouseX < 100 + closedDelete.width && mouseY > 600 && mouseY < 600 + closedDelete.height) {
+                System.out.println(instructions);
+                System.out.println(i);
+                System.out.println(instructions.get(i).isDragging);
+                //System.out.println(instructions.get(i));
+                //System.out.println(instructions.get(i).toString());
+                //instructions.set(i, null) ;
+                instructions.remove(instructions.get(i));
+                //System.out.println(instructions.get(i).toString());
             }
         }
     }

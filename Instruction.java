@@ -40,6 +40,9 @@ public class Instruction extends dragDrop implements Cloneable{
         return (xDiff < 30) && (yDiff < 30);
     }
 
+    public void delete(){
+        this.img.resize(1, 1);
+    }
     public String toString() {
         return "instruction\n";
     }
