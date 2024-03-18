@@ -143,12 +143,12 @@ public class Driver extends PApplet{
                 newInstructions.remove(currInstruction);
             }
         }
+//        System.out.println("Copies: " + instructions);
+//        System.out.println("New: " + newInstructions);
+//        System.out.println("Inside new: " + newInstructions);
+        instructionCopies.setInstructions(newInstructions);
+        instructions = instructionCopies.getSortedInstructions();
 
-        if(!newInstructions.isEmpty()){
-            instructionCopies.setInstructions(newInstructions);
-        }
-
-        System.out.println("no");
         // Snapping to other blocks
         for (int i = 0; i < instructions.size(); i++) {
             for (int j = 0; j < instructions.size(); j++) {
