@@ -24,6 +24,10 @@ public final class WorldView implements PropertyChangeListener {
         this.screen = screen;
     }
 
+    public int[] getSpider() {
+        return spider;
+    }
+
     public void readLevel() {
 //        edit if level has different size or background color
         numRows = 5;

@@ -2,8 +2,10 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * @author molly sandler
@@ -11,6 +13,7 @@ import java.util.List;
 public class Driver extends PApplet{
 
     private WorldData worldData;
+    private WorldView worldView = new WorldView(this);
     private LoadLevels level;
     Instruction[] originalInstructions;
     private StepInstruction stepBlock;
@@ -33,9 +36,8 @@ public class Driver extends PApplet{
     @Override
     public void setup(){
         worldData = WorldData.getWorldData();
-        WorldView worldView = new WorldView(this);
         worldData.addPropertyChangeListener(worldView);
-        LevelGenerator levelGenerator = new LevelGenerator();
+        LevelGenerator.makeLevels();
         level = new LoadLevels(1);
 
 
@@ -64,6 +66,10 @@ public class Driver extends PApplet{
         openedDelete = loadImage("images/trash2.png");
         openedDelete.resize(100, 150);
 
+        HashMap<String, ArrayList<Point>> map = level.loadHashMap();
+        worldData.setLevel(map);
+        level.saveHashMap(map);
+
 
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
@@ -71,7 +77,6 @@ public class Driver extends PApplet{
     }
     @Override
     public void draw() {
-        //System.out.println("printing in draw");
         background(100, 100, 100);
         playButton.display();
 
@@ -88,15 +93,14 @@ public class Driver extends PApplet{
             image(closedDelete, 100, 600);
         }
 
-        HashMap<String, ArrayList<Point>> map = level.loadHashMap();
-        worldData.setLevel(map);
-        //level.saveHashMap(map);
+        worldView.drawWorld();
+
         stepBlock.drag();
         turnBlock.drag();
         paintBlueBlock.drag();
         paintGreenBlock.drag();
         paintRedBlock.drag();
-        level.saveHashMap(map);
+
 
         for (Instruction currInstruction : InstructionList.getInstance().getSortedInstructions()) {
             currInstruction.drag();
@@ -106,7 +110,10 @@ public class Driver extends PApplet{
 
     @Override
     public void mousePressed() {
+
+
         playButton.mousePressed();
+
 
         //when on original blocks, will create copies and will automatically be dragging copies
         for(Instruction currInstruction: originalInstructions) {
@@ -118,12 +125,10 @@ public class Driver extends PApplet{
                     throw new RuntimeException(e);
                 }
                 copy.mousePressed();
-                //System.out.println(orginalInstructions);
                 instructionCopies.addInstruction(copy); // Add the copy to the list
                 break;
             }
         }
-        //System.out.println(originalInstructions.toString());
         //lets you drag around copies that you've dropped
         for (Instruction copy : InstructionList.getInstance().getSortedInstructions()) {
             copy.mousePressed();
@@ -143,9 +148,7 @@ public class Driver extends PApplet{
                 newInstructions.remove(currInstruction);
             }
         }
-//        System.out.println("Copies: " + instructions);
-//        System.out.println("New: " + newInstructions);
-//        System.out.println("Inside new: " + newInstructions);
+
         instructionCopies.setInstructions(newInstructions);
         instructions = instructionCopies.getSortedInstructions();
 

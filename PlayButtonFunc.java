@@ -8,19 +8,22 @@ public class PlayButtonFunc implements Runnable{
     public PlayButtonFunc(){}
     @Override
     public void run() {
+
         WorldData myData = WorldData.getWorldData();
 
         InstructionList instructionList = InstructionList.getInstance();
 
         List<Instruction> instructions = instructionList.getSortedInstructions();
         int[] dataSpider = myData.getSpider();
-
+        //per instruction send each instruction to their respective function
         for(Instruction instruction:instructions) {
-            System.out.println("Spider x: " + dataSpider[0] + " Spider y: " + dataSpider[1]);
-            System.out.println(instruction.toString());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if (instruction instanceof StepInstruction) {
                 int[] newPos = stepHandler(dataSpider[0], dataSpider[1], dataSpider[2]);
-                System.out.println("New Spider x: " + newPos[0] + " New Spider y: " + newPos[1]);
                 myData.moveSpider(newPos[0], newPos[1], newPos[2]);
             } else if (instruction instanceof TurnInstruction) {
                 myData.moveSpider(dataSpider[0], dataSpider[1], turnHandler(dataSpider[2]));
@@ -29,13 +32,9 @@ public class PlayButtonFunc implements Runnable{
                 myData.paintTile(dataSpider[0], dataSpider[1], color);
             }
 
-            try{
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
+
 
     public int[] stepHandler(int x, int y, int currRot){
         int[] newPos = new int[3];

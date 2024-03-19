@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LevelGenerator {
-    public LevelGenerator() {
+    public static void makeLevels(){
         level1();
         level2();
         level3();

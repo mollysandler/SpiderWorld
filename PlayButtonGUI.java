@@ -25,8 +25,10 @@ public class PlayButtonGUI {
 
     public void mousePressed(){
         if(isMouseOver()){
-            PlayButtonFunc func = new PlayButtonFunc();
-            func.run();
+            WorldData.getWorldData().resetWorld();
+            PlayButtonFunc playButtonFunc = new PlayButtonFunc();
+            Thread t1 = new Thread(playButtonFunc);
+            t1.start();
         }
     }
 
