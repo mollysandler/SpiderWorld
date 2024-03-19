@@ -30,10 +30,6 @@ public class Instruction extends dragDrop implements Cloneable{
         return (Instruction) super.clone();
     }
 
-    public int getHeight() {
-        return this.height;
-    }
-
     public boolean toSnap(Instruction b) {
         double xDiff = Math.abs(this.xPos - b.xPos);
         double yDiff = Math.abs(this.yPos - b.yPos);

@@ -16,5 +16,4 @@ public class TurnInstruction extends Instruction {
         return "turn";
     }
 
-
 }

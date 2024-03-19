@@ -15,7 +15,7 @@ public class Driver extends PApplet{
     private WorldData worldData;
     private WorldView worldView = new WorldView(this);
     private LoadLevels level;
-    Instruction[] originalInstructions;
+    private Instruction[] originalInstructions;
     private StepInstruction stepBlock;
     private TurnInstruction turnBlock;
     private PaintInstruction paintBlueBlock;
@@ -24,9 +24,8 @@ public class Driver extends PApplet{
     private PImage closedDelete;
     private PImage openedDelete;
     private PlayButtonGUI playButton;
-    private PImage stepBlockImage;
 
-    InstructionList instructionCopies = InstructionList.getInstance();
+    private InstructionList instructionCopies = InstructionList.getInstance();
 
     @Override
     public void settings(){
@@ -40,8 +39,7 @@ public class Driver extends PApplet{
         LevelGenerator.makeLevels();
         level = new LoadLevels(1);
 
-
-        stepBlockImage = loadImage("images/step.png");
+        PImage stepBlockImage = loadImage("images/step.png");
         stepBlock = new StepInstruction(this, 1000, 200, stepBlockImage);
 
         PImage turnBlockImage = loadImage("images/turn.png");
@@ -69,8 +67,6 @@ public class Driver extends PApplet{
         HashMap<String, ArrayList<Point>> map = level.loadHashMap();
         worldData.setLevel(map);
         level.saveHashMap(map);
-
-
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
 
@@ -111,9 +107,7 @@ public class Driver extends PApplet{
     @Override
     public void mousePressed() {
 
-
         playButton.mousePressed();
-
 
         //when on original blocks, will create copies and will automatically be dragging copies
         for(Instruction currInstruction: originalInstructions) {
@@ -144,7 +138,7 @@ public class Driver extends PApplet{
 
         for (Instruction currInstruction : instructions) {
             currInstruction.isDragging = false;
-            if(currInstruction.getxPos() < 100 + closedDelete.width && currInstruction.getxPos() + stepBlockImage.width > 100 && currInstruction.getyPos() < 600 + closedDelete.height && currInstruction.getyPos() + stepBlockImage.height > 600 && currInstruction.isMouseOver()){
+            if(currInstruction.getxPos() < 100 + closedDelete.width && currInstruction.getxPos() + 100 > 100 && currInstruction.getyPos() < 600 + closedDelete.height && currInstruction.getyPos() + 60 > 600 && currInstruction.isMouseOver()){
                 newInstructions.remove(currInstruction);
             }
         }
