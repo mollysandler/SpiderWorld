@@ -10,7 +10,6 @@ public class PlayButtonFunc implements Runnable{
     public void run() {
 
         WorldData myData = WorldData.getWorldData();
-
         InstructionList instructionList = InstructionList.getInstance();
 
         List<Instruction> instructions = instructionList.getSortedInstructions();
@@ -31,7 +30,6 @@ public class PlayButtonFunc implements Runnable{
                 String color = ((PaintInstruction) instruction).getColor();
                 myData.paintTile(dataSpider[0], dataSpider[1], color);
             }
-
         }
     }
 
@@ -51,7 +49,6 @@ public class PlayButtonFunc implements Runnable{
             newPos[0] = x;
             newPos[1] = y + 1;
         }
-
         newPos[2] = currRot;
         return newPos;
     }
@@ -66,5 +63,4 @@ public class PlayButtonFunc implements Runnable{
         String in = Integer.toString(currRot);
         return Integer.parseInt(turnMap.get(in));
     }
-
 }

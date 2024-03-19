@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @author Riya Badadare
+ */
+
 public class InstructionList {
     private static InstructionList instance;
     private List<Instruction> instructions;
@@ -22,7 +26,6 @@ public class InstructionList {
     public void addInstruction(Instruction instruction) {
         instructions.add(instruction);
     }
-
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }

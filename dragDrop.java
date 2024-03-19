@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 /**
- * @author andy duong
+ * @author Andy Duong
  */
 public abstract class dragDrop{
     protected PApplet screen;
@@ -17,6 +17,9 @@ public abstract class dragDrop{
         this.isDragging = false;
     }
 
+    public abstract void display();
+    public abstract boolean isMouseOver();
+
     //continuously updates the screen every x frames
     public void drag() {
         if (isDragging) {
@@ -24,9 +27,6 @@ public abstract class dragDrop{
             yPos = screen.mouseY - yOffset;
         }
     }
-
-    public abstract void display();
-    public abstract boolean isMouseOver();
 
     public void mousePressed() {
         if(isMouseOver()){ //calculate offset for the dragging
@@ -39,7 +39,6 @@ public abstract class dragDrop{
     public int getyPos() {
         return this.yPos;
     }
-
     public int getxPos() {
         return xPos;
     }

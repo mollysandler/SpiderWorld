@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 /**
- * @author riya badadare
+ * @author Riya Badadare
  */
 public class Instruction extends dragDrop implements Cloneable{
     final PImage img;
@@ -24,7 +24,6 @@ public class Instruction extends dragDrop implements Cloneable{
         return (((xPos < screen.mouseX) && (screen.mouseX < xPos + width))
                 && ((yPos < screen.mouseY) && (screen.mouseY < yPos + height)));
     }
-
     // for cloning the sidebar blocks
     public Instruction clone() throws CloneNotSupportedException {
         return (Instruction) super.clone();

@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Aayush Joshi
+ */
 public class LevelGenerator {
     public static void makeLevels(){
         level1();

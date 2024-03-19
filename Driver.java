@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * @author molly sandler
+ * @author Molly Sandler
  */
 public class Driver extends PApplet{
 
     private WorldData worldData;
-    private WorldView worldView = new WorldView(this);
+    private final WorldView worldView = new WorldView(this);
     private LoadLevels level;
     private Instruction[] originalInstructions;
     private StepInstruction stepBlock;
@@ -24,8 +24,7 @@ public class Driver extends PApplet{
     private PImage closedDelete;
     private PImage openedDelete;
     private PlayButtonGUI playButton;
-
-    private InstructionList instructionCopies = InstructionList.getInstance();
+    private final InstructionList instructionCopies = InstructionList.getInstance();
 
     @Override
     public void settings(){
@@ -60,7 +59,6 @@ public class Driver extends PApplet{
         //drawing the trashcan images over the background
         closedDelete = loadImage("images/trash1.png");
         closedDelete.resize(100, 150);
-        // Load the image to be displayed on hover
         openedDelete = loadImage("images/trash2.png");
         openedDelete.resize(100, 150);
 
@@ -69,7 +67,6 @@ public class Driver extends PApplet{
         level.saveHashMap(map);
 
         originalInstructions = new Instruction[]{stepBlock, turnBlock, paintBlueBlock, paintGreenBlock, paintRedBlock};
-
     }
     @Override
     public void draw() {
@@ -89,14 +86,13 @@ public class Driver extends PApplet{
             image(closedDelete, 100, 600);
         }
 
+        //make blocks draggable
         worldView.drawWorld();
-
         stepBlock.drag();
         turnBlock.drag();
         paintBlueBlock.drag();
         paintGreenBlock.drag();
         paintRedBlock.drag();
-
 
         for (Instruction currInstruction : InstructionList.getInstance().getSortedInstructions()) {
             currInstruction.drag();
@@ -106,9 +102,7 @@ public class Driver extends PApplet{
 
     @Override
     public void mousePressed() {
-
         playButton.mousePressed();
-
         //when on original blocks, will create copies and will automatically be dragging copies
         for(Instruction currInstruction: originalInstructions) {
             if (currInstruction.isMouseOver()) {
@@ -131,11 +125,10 @@ public class Driver extends PApplet{
 
     @Override
     public void mouseReleased() {
-
         List<Instruction> instructions = instructionCopies.getSortedInstructions();
-
         List<Instruction> newInstructions = new ArrayList<>(instructions);
 
+        //dealing with release of instruction over trash can
         for (Instruction currInstruction : instructions) {
             currInstruction.isDragging = false;
             if(currInstruction.getxPos() < 100 + closedDelete.width && currInstruction.getxPos() + 100 > 100 && currInstruction.getyPos() < 600 + closedDelete.height && currInstruction.getyPos() + 60 > 600 && currInstruction.isMouseOver()){
@@ -150,7 +143,6 @@ public class Driver extends PApplet{
         for (int i = 0; i < instructions.size(); i++) {
             for (int j = 0; j < instructions.size(); j++) {
                 if (i == j) continue;
-
                 Instruction a = instructions.get(i);
                 Instruction b = instructions.get(j);
 

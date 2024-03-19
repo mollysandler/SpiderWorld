@@ -1,12 +1,13 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * @author Andy Duong
+ */
 public class PlayButtonGUI {
-
     public PApplet screen;
     private int xPos, yPos, width, height;
     private PImage img;
-
     public PlayButtonGUI(PApplet screen, int xPos, int yPos, PImage img){
         this.screen = screen;
         this.xPos = xPos;
@@ -31,5 +32,4 @@ public class PlayButtonGUI {
             t1.start();
         }
     }
-
 }

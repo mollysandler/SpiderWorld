@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 /**
- * @author riya badadare
+ * @author Riya Badadare
  */
 public class TurnInstruction extends Instruction {
     public TurnInstruction(PApplet screen, int xPos, int yPos, PImage img) {
@@ -15,5 +15,4 @@ public class TurnInstruction extends Instruction {
     public String toString() {
         return "turn";
     }
-
 }

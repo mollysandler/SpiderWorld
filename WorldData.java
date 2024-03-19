@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @author jemma arona
+ * @author Jemma Arona
  */
 public final class WorldData extends PropertyChangeSupport {
     private static WorldData worldData;
@@ -61,14 +61,6 @@ public final class WorldData extends PropertyChangeSupport {
 //        paintTile( 4, 4, "green");
     }
 
-    public int getNumRows() {
-        return numRows;
-    }
-
-    /**
-     * (rot: 0 = east, 1 = north, 2 = west, 3 = south)
-     * @return 3 int array: {x, y, rot}
-     */
     public int[] getSpider() {
         return spider;
     }
@@ -91,7 +83,6 @@ public final class WorldData extends PropertyChangeSupport {
     public HashMap<String, ArrayList<Point>> getLevelMap() {
         return levelMap;
     }
-
     public HashMap<Point, String> getTileMap() {
         return tileMap;
     }
@@ -118,6 +109,5 @@ public final class WorldData extends PropertyChangeSupport {
             moveSpider( 0, 0, 0 );
         }
     }
-
 }
 

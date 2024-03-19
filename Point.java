@@ -1,10 +1,9 @@
 import java.io.Serializable;
 
 /**
- * @author aayush joshi
+ * @author Aayush Joshi
  */
 class Point implements Serializable {
-
     private final int x;
     private final int y;
 
@@ -16,7 +15,6 @@ class Point implements Serializable {
     public int getX() {
         return this.x;
     }
-
     public int getY() {
         return this.y;
     }

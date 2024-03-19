@@ -2,14 +2,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * @author aayush joshi
+ * @author Aayush Joshi
  */
 class LoadLevels {
-
-    // Keeping track of current level
     private final int curLevel;
-
-    // Constructor
     public LoadLevels (int level) {
         this.curLevel = level;
     }
