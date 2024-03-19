@@ -36,7 +36,7 @@ public class PlayButtonFunc implements Runnable{
     }
 
 
-    public int[] stepHandler(int x, int y, int currRot){
+    private int[] stepHandler(int x, int y, int currRot){
         int[] newPos = new int[3];
         if(currRot == 2){// west/left
             newPos[0] = x - 1;
@@ -56,7 +56,7 @@ public class PlayButtonFunc implements Runnable{
         return newPos;
     }
 
-    public int turnHandler(int currRot){
+    private int turnHandler(int currRot){
         HashMap<String, String> turnMap = new HashMap<>();
         //(rot: 0 = east, 1 = north, 2 = west, 3 = south)
         turnMap.put("0", "1");
