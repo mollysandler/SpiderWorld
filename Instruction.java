@@ -3,7 +3,7 @@ import processing.core.PImage;
 /**
  * @author Riya Badadare
  */
-public class Instruction extends dragDrop implements Cloneable{
+public class Instruction extends DragDrop implements Cloneable{
     final PImage img;
     private final int width;
     private final int height;

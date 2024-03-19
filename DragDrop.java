@@ -2,7 +2,7 @@ import processing.core.PApplet;
 /**
  * @author Andy Duong
  */
-public abstract class dragDrop{
+public abstract class DragDrop {
     protected PApplet screen;
     protected int xPos;
     protected int yPos;
@@ -10,7 +10,7 @@ public abstract class dragDrop{
     protected int yOffset;
     protected boolean isDragging;
 
-    protected dragDrop(PApplet screen, int x, int y) {
+    protected DragDrop(PApplet screen, int x, int y) {
         this.screen = screen;
         this.xPos = x;
         this.yPos = y;
