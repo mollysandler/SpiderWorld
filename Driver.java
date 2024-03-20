@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * @author Molly Sandler
+ * @author Molly Sandler, Riya Badadare
  */
 public class Driver extends PApplet{
 
