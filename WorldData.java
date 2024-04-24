@@ -5,12 +5,14 @@ import java.util.HashMap;
 /**
  * @author Jemma Arona
  */
+
 public final class WorldData extends PropertyChangeSupport {
     private static WorldData worldData;
     private int numRows;
     private HashMap <String, ArrayList <Point>> levelMap;
-    private HashMap <Point, String> tileMap;
-    private int[] spider, bgColor;
+    private final HashMap <Point, String> tileMap;
+    private final int[] spider;
+    private final int[] bgColor;
 
     private WorldData() {
         super( new Object() );
@@ -18,6 +20,7 @@ public final class WorldData extends PropertyChangeSupport {
         tileMap = new HashMap<>();
         spider = new int[]{0, 0, 0};
         bgColor = new int[]{0, 0, 0};
+        PaintMixer.setTileMap( tileMap );
     }
 
     public static WorldData getWorldData() {
@@ -44,21 +47,6 @@ public final class WorldData extends PropertyChangeSupport {
         firePropertyChange( "numRows", null, numRows );
         firePropertyChange( "bgColor", null, bgColor );
         resetWorld();
-//        paintTile( 1, 1, "red");
-//        paintTile( 2, 1, "red");
-//        paintTile( 3, 1, "blue");
-//        paintTile( 4, 1, "blue");
-//        paintTile( 2, 2, "green");
-//        paintTile( 1, 2, "green");
-//        paintTile( 0, 4, "red");
-//        paintTile( 1, 4, "red");
-//        paintTile( 4, 4, "red");
-//        paintTile( 0, 4, "blue");
-//        paintTile( 2, 4, "blue");
-//        paintTile( 4, 4, "blue");
-//        paintTile( 1, 4, "green");
-//        paintTile( 2, 4, "green");
-//        paintTile( 4, 4, "green");
     }
 
     public int[] getSpider() {
@@ -87,14 +75,8 @@ public final class WorldData extends PropertyChangeSupport {
         return tileMap;
     }
 
-    public void paintTile( int x, int y, String color ) {
-        Point p = new Point( x, y );
-        if ( tileMap.containsKey( p ) ) {
-            tileMap.replace(p, color);
-        }
-        else {
-            tileMap.put(p, color);
-        }
+    public void paintTile(int x, int y, String color ) {
+        PaintMixer.addPaint( x, y, color );
         firePropertyChange( "visible", null, true );
     }
 
